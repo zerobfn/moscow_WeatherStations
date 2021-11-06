@@ -3,10 +3,14 @@ export const Action = {
 
 export const Mutation = {
     changeLayerType: 'changeLayerType',
-    setMapData: 'setMapData'
+    setMapData: 'setMapData',
+    setStation: 'setStation',
+    incZoom: 'incZoom',
+    decZoom: 'decZoom'
 }
 
 export const Getter = {
     getLayerType: 'getLayerType',
-    getMapData: 'getMapData'
+    getMapData: 'getMapData',
+    getStation: 'getStation'
 }

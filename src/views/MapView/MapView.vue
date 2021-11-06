@@ -25,6 +25,11 @@
 
             <LayerGroup />
 
+            <Stations
+                ref="stations"
+                :map.sync="$refs.map"
+            />
+
         </vl-map>
     </div>
 </template>
@@ -35,16 +40,19 @@ import { Getter, Mutation } from 'vuex-class'
 import { GetterNames, MutationNames } from '@/store/types'
 
 import LayerGroup from './components/LayerGroup.vue'
+import Stations from './components/Stations.vue'
 
 @Component({
     components: {
-        LayerGroup
+        LayerGroup,
+        Stations
     }
 })
 export default class MapView extends Vue {
     public $refs!: {
         map: any,
-        vlView: any
+        vlView: any,
+        stations: any
     }
 
     @Getter(GetterNames.getMapData) private getMapData!: any
@@ -54,7 +62,7 @@ export default class MapView extends Vue {
     }
 
     private onPointerMove(evt: any) {
-        // TODO
+        this.$refs.stations.onPointerMove(evt)
     }
 
 }
