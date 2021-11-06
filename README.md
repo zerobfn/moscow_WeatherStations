@@ -1,4 +1,4 @@
-# moscow
+# Moscow Weather Stations
 
 ## Project setup
 ```
