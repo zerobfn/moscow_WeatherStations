@@ -34,4 +34,22 @@ input:focus {
     outline-style: solid;
     outline-color: #4B970F;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 4px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #ABAEA3;
+    border-radius: 4px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #ABAEB3;
+    cursor: pointer;
+}
 </style>

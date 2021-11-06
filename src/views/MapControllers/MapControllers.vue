@@ -5,6 +5,7 @@
             @click="toggleLayersDropdown()">
             <BaseIcon class="icon" :src="require('!html-loader!@/assets/layers_icon.svg')"/>
         </div>
+
         <div class="layers" id="layers_dropdown-activator"
             v-outside-click="{except: 'layers_dropdown-activator', callback: closeLayersDropdown}"
             v-show="layersDropdown"
@@ -37,6 +38,7 @@
                 </div>
             </div>
         </div>
+
         <div class="zoom_container">
             <div class="zoom-in btn" @click="incZoom()">
                 <BaseIcon class="icon" :src="require('!html-loader!@/assets/plus_icon.svg')"/>
@@ -45,6 +47,8 @@
                 <BaseIcon class="icon" :src="require('!html-loader!@/assets/minus_icon.svg')"/>
             </div>
         </div>
+
+        <SideBoard class="sideboard"/>
     </div>
 </template>
 
@@ -52,8 +56,13 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { Getter, Mutation } from 'vuex-class'
 import { GetterNames, MutationNames } from '@/store/types'
+import SideBoard from './components/SideBoard.vue'
 
-@Component
+@Component({
+    components: {
+        SideBoard
+    }
+})
 export default class MapControllers extends Vue {
     @Getter(GetterNames.getLayerType) private getLayerType!: any
     @Mutation(MutationNames.changeLayerType) private changeLayerType!: any
@@ -140,6 +149,12 @@ export default class MapControllers extends Vue {
                 cursor: pointer;
             }
         }
+    }
+    .sideboard {
+        position: absolute;
+        z-index: 4;
+        left: 0;
+        top: 0;
     }
 }
 </style>

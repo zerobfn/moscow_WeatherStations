@@ -4,3 +4,5 @@ declare module '*.vue' {
 }
 
 declare module 'vuelayers'
+
+declare module 'chart.js'

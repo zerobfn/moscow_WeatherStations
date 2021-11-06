@@ -72,11 +72,8 @@ export default class LayerGroup extends Vue {
     }
     private onPointerMove(evt: any) {
         if (this.map) {
-            const pixel = this.map.$map.getEventPixel(evt.originalEvent)
-            const hit = this.map.$map.hasFeatureAtPixel(pixel)
-            this.map.$map.getViewport().style.cursor = hit ? 'pointer' : ''
             this.hoverId = -1
-            this.map.forEachFeatureAtPixel(evt.pixel, (feature: any) => {
+            const hit = this.map.forEachFeatureAtPixel(evt.pixel, (feature: any) => {
                 const featureType = feature.get('type')
                 if (featureType === 'station') {
                     this.hoverId = feature.get('id')
@@ -85,6 +82,11 @@ export default class LayerGroup extends Vue {
                 }
                 return true
             })
+            if (hit) {
+                this.map.$map.getTargetElement().style.cursor = 'pointer'
+            } else {
+                this.map.$map.getTargetElement().style.cursor = ''
+            }
         }
     }
 }
