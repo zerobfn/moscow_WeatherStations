@@ -1,15 +1,19 @@
 <template>
-  <div class="Home"></div>
+    <div class="MapControllers">
+    </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
 @Component
-export default class Home extends Vue {
+export default class MapControllers extends Vue {
 
 }
 </script>
 
 <style lang="scss" scoped>
+.MapControllers {
+    width: 100%;
+}
 </style>

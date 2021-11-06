@@ -16,8 +16,10 @@
         "vue-loader": "^15.9.8",
         "vue-property-decorator": "^9.1.2",
         "vue-router": "^3.2.0",
+        "vuelayers": "^0.11.37",
         "vuetify": "^2.4.0",
-        "vuex": "^3.4.0"
+        "vuex": "^3.4.0",
+        "vuex-class": "^0.3.2"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^4.18.0",
