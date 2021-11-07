@@ -88,6 +88,14 @@
             <div class="main_graph">
                 <canvas class="main-chart" id="main-chart"></canvas>
             </div>
+            <v-data-table
+                class="mt-6 elevation-2 p-2"
+                v-if="getStation === 6"
+                dense
+                :headers="table.header"
+                :items="table.data"
+                item-key="name"
+            ></v-data-table>
         </div>
         <div class="Sideboard_body" v-show="getStation !== 1 && getStation !== 6">
                 <div class="placeholder">
@@ -121,6 +129,10 @@ export default class SideBoard extends Vue {
     private selectedDate = ''
     private selectedIndicator = ''
     private mainChart: any = null
+    private table: any = {
+        header: [],
+        data: []
+    }
 
     get getName() {
         const station = this.stations.find((x: any) => x.id === this.getStation)
@@ -241,14 +253,27 @@ export default class SideBoard extends Vue {
                 const typeUpper = date.data.find((x: any) => x.type === `${this.selectedIndicator}_upper`)
                 const type = date.data.find((x: any) => x.type === this.selectedIndicator)
                 const typeLower = date.data.find((x: any) => x.type === `${this.selectedIndicator}_lower`)
+                this.table.header = [
+                    {text: 'Время', value: 'date'},
+                    {text: this.selectedIndicator, value: 'avg' },
+                    {text: `${this.selectedIndicator}_lower`, value: `lower`},
+                    {text: `${this.selectedIndicator}_upper`, value: `upper`}
+                ]
                 if (typeUpper && type && typeLower) {
                     const upperData = []
                     const lowerData = []
                     const typeData = []
+                    this.table.data = []
                     for (const key in typeUpper.data) {
                         upperData.push({
                             t: key,
                             y: Number(typeUpper.data[key])
+                        })
+                        this.table.data.push({
+                            date: this.normalizeDate(key),
+                            upper:  Number(typeUpper.data[key]),
+                            lower: 0,
+                            avg: 0
                         })
                     }
                     for (const key in typeLower.data) {
@@ -256,12 +281,20 @@ export default class SideBoard extends Vue {
                             t: key,
                             y: Number(typeLower.data[key])
                         })
+                        const index = this.table.data.findIndex((x: any) => x.date === this.normalizeDate(key))
+                        if (index !== -1) {
+                            this.table.data[index].lower = Number(typeLower.data[key])
+                        }
                     }
                     for (const key in type.data) {
                         typeData.push({
                             t: key,
                             y: Number(type.data[key])
                         })
+                        const index = this.table.data.findIndex((x: any) => x.date === this.normalizeDate(key))
+                        if (index !== -1) {
+                            this.table.data[index].avg = Number(type.data[key])
+                        }
                     }
                     const data = []
                     if (this.selectedIndicator === 'NO') {
@@ -314,6 +347,12 @@ export default class SideBoard extends Vue {
                 }
             }
         }
+    }
+
+    private normalizeDate(date: string) {
+        if (date) {
+            return `${date.substring(11, 16)} ${date.substring(8, 10)}.${date.substring(5, 7)}`
+        } else return ''
     }
 }
 </script>
